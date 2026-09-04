@@ -69,11 +69,10 @@ jobs:
           SHORT_SHA=$(echo "${GITHUB_SHA}" | cut -c1-7) 
           echo "image_tag=sha-${SHORT_SHA}" >> "$GITHUB_OUTPUT" 
  
-      - name: Build Docker image 
-        run: | 
-          docker build -t ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.image_tag }} . 
-          docker tag ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.image_tag }} \ 
-                     ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest 
+      - name: Build Docker image
+        run: |
+         docker build -t "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.image_tag }}" .
+         docker tag "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ steps.meta.outputs.image_tag }}" "${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:latest" 
  
       - name: Push Docker image 
         run: | 
